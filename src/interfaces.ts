@@ -12,6 +12,7 @@ export interface ResponseObject<T> {
     body: ReqBody,
     accepted: MediaType[],
     status?: string
+    success?: boolean,
     data?: {
         length: number
         value: T
