@@ -1,0 +1,55 @@
+openapi: 3.0.3
+info:
+  title: Userdata API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  "/username/{name}":
+    put:
+      tags:
+        - Userdata
+      summary: Sets a username
+      operationId: setUsername
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Username has been set
+  "/username":
+    get:
+      tags:
+        - Userdata
+      summary: Gets a username
+      operationId: getUsername
+      responses:
+        '200':
+          description: Username has been retrieved
+  "/persona/{name}":
+    put:
+      tags:
+        - Userdata
+      summary: Sets a persona
+      operationId: setPersona
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Persona has been set
+  "/persona":
+    get:
+      tags:
+        - Userdata
+      summary: Gets a persona
+      operationId: getPersona
+      responses:
+        '200':
+          description: Persona has been retrieved
