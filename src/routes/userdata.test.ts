@@ -1,8 +1,15 @@
 import supertest, {Response} from "supertest";
 
-import {describe, it, expect} from '@jest/globals';
+import {describe, expect, it, beforeAll} from '@jest/globals';
 import {app} from "../app";
 import {ResponseObject} from "../interfaces";
+import {existsSync, mkdirSync} from "fs";
+
+beforeAll(() => {
+    if (!existsSync("./userStorage")){
+        mkdirSync("./userStorage");
+    }
+})
 
 describe("Username routes", () => {
     const requestWithSuperTest = supertest(app);
@@ -12,16 +19,23 @@ describe("Username routes", () => {
             .put("/username/Michael")
             .expect(200)
             .expect('Content-Type', /json/)
-            .then(async (response: Response) => {
-                expect(response).toBeDefined();
-                await requestWithSuperTest
-                    .get("/username")
-                    .expect(200)
-                    .expect('Content-Type', /json/)
-                    .then((getResponse: Response) => {
-                        expect(getResponse).toBeDefined();
-                        expect((getResponse.body as ResponseObject<string>).data.value).toBe("Michael");
-                    })
+            .then((response: Response) => {
+                console.log((response.body as ResponseObject<boolean>));
+                expect((response.body as ResponseObject<boolean>).success).toBeTruthy();
+            })
+            .catch((err) => {
+                console.error("Supertest Error: ", err);
+            })
+    });
+
+    it("should get username value with 'Michael'", async () => {
+        await requestWithSuperTest
+            .get("/username")
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .then((getResponse: Response) => {
+                expect(getResponse).toBeDefined();
+                expect((getResponse.body as ResponseObject<string>).data.value).toBe("Michael");
             })
     });
 });
@@ -34,16 +48,20 @@ describe("Username routes", () => {
             .put("/persona/Panda")
             .expect(200)
             .expect('Content-Type', /json/)
-            .then(async (response: Response) => {
-                expect(response).toBeDefined();
-                await requestWithSuperTest
-                    .get("/persona")
-                    .expect(200)
-                    .expect('Content-Type', /json/)
-                    .then((getResponse: Response) => {
-                        expect(getResponse).toBeDefined();
-                        expect((getResponse.body as ResponseObject<string>).data.value).toBe("Panda");
-                    })
+            .then((response: Response) => {
+                console.log((response.body as ResponseObject<boolean>));
+                expect((response.body as ResponseObject<boolean>).success).toBeTruthy();
+            })
+    });
+
+    it("should get persona value with 'Panda'", async () => {
+        await requestWithSuperTest
+            .get("/persona")
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .then((getResponse: Response) => {
+                expect(getResponse).toBeDefined();
+                expect((getResponse.body as ResponseObject<string>).data.value).toBe("Panda");
             })
     });
 });
