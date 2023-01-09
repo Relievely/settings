@@ -1,19 +1,19 @@
 import {routes} from "./routes";
 import * as dotenv from "dotenv";
-import * as fs from "fs";
 
-const express = require("express");
+import express, {Express} from "express";
+import fs from "fs";
 
-export const app = express();
+export const app: Express = express();
 
-if(fs.existsSync(".env")) {
+if (fs.existsSync('.env')) {
     const config = dotenv.config({path: '.env'});
 
     if (config.error) {
         throw config.error;
     }
 } else {
-    console.warn("No environment file detected!");
+    console.log("No environment file provided");
 }
 
 routes(app);
