@@ -1,6 +1,10 @@
-import {Request, Response, NextFunction} from "express";
+import pino from "pino";
+import pretty from "pino-pretty";
 
-export const logger = (req: Request, res: Response, next: NextFunction) => {
-    console.log("Params", req.params);
-    next();
-}
+const logger = pino(pretty({
+    colorize: true
+}));
+
+
+export const infoMessage = (input: string) => logger.info(input);
+export const errorMessage = (input: string) => logger.error(input);

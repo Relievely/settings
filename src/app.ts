@@ -2,7 +2,7 @@ import {routes} from "./routes";
 import * as dotenv from "dotenv";
 
 import express, {Express} from "express";
-import fs from "fs";
+import fs, {existsSync, mkdirSync} from "fs";
 
 export const app: Express = express();
 
@@ -14,6 +14,10 @@ if (fs.existsSync('.env')) {
     }
 } else {
     console.log("No environment file provided");
+}
+
+if (!existsSync("./userStorage")){
+    mkdirSync("./userStorage");
 }
 
 routes(app);

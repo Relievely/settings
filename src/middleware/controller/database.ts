@@ -4,6 +4,9 @@ import {ResponseObject} from "../../interfaces";
 import {responseError} from "../../helpers";
 
 export const setUsernameController = (req: Request, res: Response<ResponseObject<boolean>>) => {
+
+    console.log("Set Username");
+
     setUsernameAdapter(req)
         .then((response: ResponseObject<boolean>) => res.status(200).json(response))
         .catch((err: Error) => res.status(500).json(responseError(req, err.message)))
