@@ -3,11 +3,11 @@ import {Express} from "express";
 import expressPinoLogger from "express-pino-logger";
 import bodyParser from "body-parser";
 import multer, {Multer} from "multer";
-
-const form: Multer = multer();
 import {userdata} from "./routes/userdata";
 import pretty from "pino-pretty";
 import pino from "pino";
+
+const form: Multer = multer();
 
 export const routes = (app: Express) => {
     app.use(cors({

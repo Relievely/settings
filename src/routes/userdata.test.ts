@@ -1,6 +1,6 @@
 import supertest, {Response} from "supertest";
 
-import {describe, expect, it, beforeAll} from '@jest/globals';
+import {beforeAll, describe, expect, it} from '@jest/globals';
 import {app} from "../app";
 import {ResponseObject} from "../interfaces";
 import {existsSync, mkdirSync} from "fs";
@@ -8,7 +8,7 @@ import {existsSync, mkdirSync} from "fs";
 const requestWithSuperTest = supertest(app);
 
 beforeAll(() => {
-    if (!existsSync("./userStorage")){
+    if (!existsSync("./userStorage")) {
         mkdirSync("./userStorage");
     }
 })

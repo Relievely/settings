@@ -1,7 +1,6 @@
 import {Request} from "express";
 import levelup from "levelup";
 import leveldown from "leveldown";
-import {existsSync, mkdirSync} from "fs";
 
 export const userDB = () => {
     return levelup(leveldown('./userStorage'));
