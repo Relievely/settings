@@ -5,6 +5,8 @@ import {app} from "../app";
 import {ResponseObject} from "../interfaces";
 import {existsSync, mkdirSync} from "fs";
 
+const requestWithSuperTest = supertest(app);
+
 beforeAll(() => {
     if (!existsSync("./userStorage")){
         mkdirSync("./userStorage");
@@ -12,7 +14,6 @@ beforeAll(() => {
 })
 
 describe("Username routes", () => {
-    const requestWithSuperTest = supertest(app);
 
     it("should set username value with 'Michael'", async () => {
         await requestWithSuperTest
@@ -41,7 +42,6 @@ describe("Username routes", () => {
 });
 
 describe("Username routes", () => {
-    const requestWithSuperTest = supertest(app);
 
     it("should set persona value with 'Panda'", async () => {
         await requestWithSuperTest

@@ -1,9 +1,7 @@
 import {app} from './app';
 
-import pino from "pino";
-
-const logger = pino();
+import {infoMessage} from "./middleware/logger";
 
 const port = process.env.PORT;
 
-app.listen(port, () => logger.info(`Settings service listening on port: ${port}`))
+app.listen(port, () => infoMessage(`Settings service listening on port: ${port}`))
