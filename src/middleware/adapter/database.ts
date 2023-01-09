@@ -11,11 +11,13 @@ import {parametersIncluded, userDB} from "../helpers";
 
 export const setUsernameAdapter = (req: Request): Promise<ResponseObject<boolean>> => {
     return new Promise((resolve, reject) => {
+        console.log("Params: ", req.params);
         if (!parametersIncluded<string>(req, "name")) {
             reject(insufficientParametersError)
         }
+
         userDB.put('username', req.params.name, (err: Error) => {
-            if (err) return reject(inputDatabaseError(err)) // some kind of I/O error
+            if (err) reject(inputDatabaseError(err)) // some kind of I/O error
 
             resolve(responseObjectState<boolean>(req, true));
         })
@@ -26,6 +28,10 @@ export const getUsernameAdapter = (req: Request): Promise<ResponseObject<any>> =
     return new Promise((resolve, reject) => {
         userDB.get('username', (getErr: Error, value: Bytes) => {
             if (getErr) reject(getDatabaseError(getErr)) // likely the key was not found
+
+            if(value === undefined) {
+                throw new Error("No bytes value returned!");
+            }
 
             resolve(responseObjectDatabaseValue<string>(req, value.toString()));
         })
@@ -49,6 +55,10 @@ export const getPersonaAdapter = (req: Request): Promise<ResponseObject<any>> =>
     return new Promise((resolve, reject) => {
         userDB.get('persona', (getErr: Error, value: Bytes) => {
             if (getErr) reject(getDatabaseError(getErr)) // likely the key was not found
+
+            if(value === undefined) {
+                throw new Error("No bytes value returned!");
+            }
 
             resolve(responseObjectDatabaseValue<string>(req, value.toString()));
         })

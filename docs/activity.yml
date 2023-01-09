@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: Relievely Settings Service
+  description: |-
+    This is a microservice to store user settings
+
+  contact:
+    email: contact@example.org
+  version: 0.1-a
+
+tags:
+  - name: userdata
+    description: Get settings for the user
+paths:
+  /username:
+    get:
+      tags:
+        - userdata
+      summary: Get name of user
+      description: Get username
+      operationId: getUsername
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Username'
+
+    put:
+      tags:
+        - userdate
+      summary: Set name of the user
+      description: Set username
+      operationId: setUsername
+      parameters:
+          - name: username
+            in: path
+            description: username to set
+            required: true
+            schema:
+              type: string
+      responses:
+          '200':
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ResponseObjectState'
+
+components:
+  schemas:
+    Username:
+      type: string
+    Persona:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Whale
+    ResponseObjectState:
+      type: object

@@ -1,11 +1,13 @@
 import cors from "cors";
 import {Express} from "express";
-import pino_http from "pino-http";
+import expressPinoLogger from "express-pino-logger";
 import bodyParser from "body-parser";
 import multer, {Multer} from "multer";
 
 const form: Multer = multer();
 import {userdata} from "./routes/userdata";
+import pretty from "pino-pretty";
+import pino from "pino";
 
 export const routes = (app: Express) => {
     app.use(cors({
@@ -15,7 +17,13 @@ export const routes = (app: Express) => {
         "optionsSuccessStatus": 204
     }));
 
-    app.use(pino_http());
+    const loggerMiddleware = expressPinoLogger({
+        logger: pino(pretty({
+            colorize: true
+        }))
+    });
+
+    app.use(loggerMiddleware)
     app.use(bodyParser.urlencoded({extended: true}))
     app.use(bodyParser.json())
     app.use(form.any())
