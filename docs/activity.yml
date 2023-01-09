@@ -34,19 +34,19 @@ paths:
       description: Set username
       operationId: setUsername
       parameters:
-          - name: username
-            in: path
-            description: username to set
-            required: true
-            schema:
-              type: string
+        - name: username
+          in: path
+          description: username to set
+          required: true
+          schema:
+            type: string
       responses:
-          '200':
-            description: successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ResponseObjectState'
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseObjectState'
 
 components:
   schemas:

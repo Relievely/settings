@@ -16,7 +16,7 @@ if (fs.existsSync('.env')) {
     console.log("No environment file provided");
 }
 
-if (!existsSync("./userStorage")){
+if (!existsSync("./userStorage")) {
     mkdirSync("./userStorage");
 }
 

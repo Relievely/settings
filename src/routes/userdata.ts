@@ -1,10 +1,5 @@
 import {Router} from "express";
-import {
-    getPersonaController,
-    getUsernameController,
-    setPersonaController,
-    setUsernameController
-} from "../middleware/controller/database";
+import {getPersonaController, getUsernameController, setPersonaController, setUsernameController} from "../middleware/controller/database";
 
 export const userdata = Router();
 
